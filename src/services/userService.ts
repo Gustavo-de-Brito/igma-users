@@ -9,8 +9,9 @@ class UserService {
     await this.isUserRegistered(formatedCpf);
 
     const birthday = new Date(newUser.birthday);
-    const formatedBirthday: string =  birthday.getDate() + '-' + (birthday.getMonth() + 1) + 
-    '-' + birthday.getFullYear() ;
+    const formatedBirthday: string =  (birthday.getDate() + '-' +
+      (birthday.getMonth() + 1) + '-' + birthday.getFullYear()
+    );
 
     const formatedUser = {
       ...newUser,

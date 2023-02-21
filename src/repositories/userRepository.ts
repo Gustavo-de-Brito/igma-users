@@ -2,7 +2,7 @@ import connection from '../databases/postgres';
 import { DatabaseUser, SendUser } from '../types/userTypes';
 
 class UserRepository {
-  public async findUserByCpf(cpf: string): Promise<DatabaseUser> {
+  public async findUserByCpf(cpf: string): Promise<DatabaseUser | undefined> {
     const { rows: [ user ] } = await connection.query(
       `
       SELECT * FROM users
