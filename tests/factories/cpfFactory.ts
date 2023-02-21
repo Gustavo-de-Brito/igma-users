@@ -20,7 +20,8 @@ class CpfFactory {
     );
 
     const validCpf: string = firstDigits + penultimateDigit + lastDigit;
-    return validCpf;
+
+    return this.formatCpf(validCpf);
   }
 
   private generateFirstDigits(): string {
@@ -60,6 +61,22 @@ class CpfFactory {
     const lastDigit = 11 - (sum % 11);
 
     return lastDigit > 9 ? '0' : String(lastDigit);
+  }
+
+  private formatCpf(cpfNumbers: string): string {
+    let formatedCpf: string = '';
+  
+    for(let i = 0; i < cpfNumbers.length; i++) {
+      if(i === 3 || i === 6) {
+        formatedCpf += '.';
+      } else if(i === 9) {
+        formatedCpf += '-';
+      }
+
+      formatedCpf += cpfNumbers[i];
+    }
+
+    return formatedCpf;
   }
 }
 

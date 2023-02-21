@@ -37,7 +37,7 @@ class UserFactory {
   private formatDateMonthFirst(date: string): string {
     const birthday = new Date(date);
     const formatedBirthday: string =  ((birthday.getMonth() + 1) + '-' +
-      birthday.getDate + '-' + birthday.getFullYear()
+      birthday.getDate() + '-' + birthday.getFullYear()
     );
 
     return formatedBirthday;
