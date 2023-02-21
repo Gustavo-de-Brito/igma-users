@@ -31,6 +31,21 @@ class UserService {
     return {...user, birthday: this.formatDate(user.birthday)};
   }
 
+  public async getUsers(offset: number, limit: number): Promise<DatabaseUser[]> {
+    const users = await userRepository.getUsersList(offset, limit);
+
+    if(users.length === 0) throw ErrorUtils.notFoundError('as querys passadas são inválidas');
+
+    const formatedUsers: DatabaseUser[] = users.map(user => {
+      return {
+        ...user,
+        birthday: this.formatDate(user.birthday)
+      };
+    });
+
+    return formatedUsers;
+  }
+
   private cpfValidation(cpf: string): string {
     const cpfForValidation = new ValidateCpf(cpf);
     cpfForValidation.formatCpf();

@@ -25,7 +25,9 @@ class userController {
     const offset: number = res.locals.offset;
     const limit: number = res.locals.limit;
 
-    return res.sendStatus(501);
+    const users: DatabaseUser[] = await userService.getUsers(offset, limit);
+
+    return res.status(200).send(users);
   }
 }
 

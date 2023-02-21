@@ -21,6 +21,18 @@ class UserRepository {
       `
     );
   }
+
+  public async getUsersList(offset: number, limit: number): Promise<DatabaseUser[]> {
+    const{ rows: users } = await connection.query(
+      `
+      SELECT * FROM users
+      OFFSET ${offset}
+      LIMIT ${limit};
+      `
+    );
+
+    return users;
+  }
 }
 
 export default new UserRepository();
