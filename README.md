@@ -53,9 +53,9 @@ npm run test:integration
 
 ## Rotas
 
-### POST users
+### POST /users
 
-recebe um body no formato:
+Recebe um body no formato:
 
 ```
 {
@@ -69,3 +69,53 @@ recebe um body no formato:
 - **birthday** deve seguir o formato *MM-DD-YYYY*;
 
 - Em caso de sucesso, a requisição terá como resposta status **201**.
+
+### GET /users/:cpf
+
+Recebe um cpf no params, somento os números ou com pontuação.
+
+Caso o usuário seja encontrado é retornado um objeto no seguinte formato: 
+
+```
+{
+  "id": 1,
+  "name": "Arlindo",
+  "cpf": "123.123.123-12",
+  "birthday": "15-12-2003"
+}
+```
+
+- **birthday** é retornado no formato *DD-MM-YYYY*
+- o **cpf** passado no params precisa ser um CPF válido
+
+### GET /users?offset=*offset*&limit=*limit*
+
+Recebe duas queries obrigatoriamente: offset(ponto de partida dos dados, por exemplo, a partir do item 10 do banco de dados) e um limit (quantidade máxima a ser recebida de dados, por exemplo, no máximo 8 clientes).
+
+Caso hajam usuários e a quantidade supra o requisitado nas queries, a requisição será respondida com um array no seguinte formato: 
+
+```
+[
+  {
+    "id": 1,
+    "name": "Arlindo",
+    "cpf": "123.123.123-12",
+    "birthday": "15-12-2003"
+  },
+  {
+    "id": 2,
+    "name": "Ariele",
+    "cpf": "321.321.321-32",
+    "birthday": "3-4-1998"
+  },
+  {
+    "id": 3,
+    "name": "Gaubiela",
+    "cpf": "999.999.999-99",
+    "birthday": "27-11-1903"
+  },
+]
+```
+
+- **birthday** é retornado no formato *DD-MM-YYYY*
+- **offset** e **limit** devem ser números inteiros
