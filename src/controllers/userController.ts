@@ -1,9 +1,15 @@
 import { Request, Response } from 'express';
+import { SendUser } from '../types/userTypes';
+import userService from '../services/userService';
 
 class userController {
 
   public async createUser(req: Request, res: Response): Promise<Response> {
-    return res.status(501).send('POST users route');
+    const newUser: SendUser = req.body;
+
+    await userService.registerUser(newUser);
+  
+    return res.sendStatus(201);
   }
 }
 

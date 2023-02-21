@@ -28,7 +28,7 @@ CREATE TABLE public.users (
     id integer NOT NULL,
     name text NOT NULL,
     cpf character varying(14) NOT NULL,
-    birhday date NOT NULL
+    birthday date NOT NULL
 );
 
 
@@ -67,7 +67,8 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.users (id, name, cpf, birhday) FROM stdin;
+COPY public.users (id, name, cpf, birthday) FROM stdin;
+8	aksdk	163.667.823-85	2007-12-15
 \.
 
 
@@ -75,7 +76,7 @@ COPY public.users (id, name, cpf, birhday) FROM stdin;
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 1, false);
+SELECT pg_catalog.setval('public.users_id_seq', 8, true);
 
 
 --
@@ -93,4 +94,8 @@ ALTER TABLE ONLY public.users
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
 
+
+--
+-- PostgreSQL database dump complete
+--
 
