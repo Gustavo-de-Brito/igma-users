@@ -14,6 +14,11 @@ Uma API REST para cadastro de clientes.
 - pg(postgres)
 - Joi
 - express-async-errors
+- Jest
+- Ts-jest
+- Supertest
+- @faker-js/faker
+- Dotenv-cli
 - PostgreSQL
 
 ## Como rodar o projeto
@@ -36,13 +41,23 @@ npm run start
 npm run dev
 ```
 
+- Para rodar os testes é necessário um arquivo chamado **.env.test** com as configurações do .env.example com exceção da variável PORT
+
+```bash
+# Rode os testes unitários
+npm run test:unit
+
+# Rode os testes de integração
+npm run test:integration
+```
+
 ## Rotas
 
 ### POST users
 
 recebe um body no formato:
 
-```js
+```
 {
   "name": "Arlindo",
   "cpf": "123.123.123-12",

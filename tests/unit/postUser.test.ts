@@ -28,7 +28,7 @@ describe('Test user service methods', () => {
     }
   );
 
-  it('it should call addUser function if all validations get true',
+  it('it should call addUser function when passing through all validations',
     async () => {
       const newUser = await userFactory.generateUser();
 
