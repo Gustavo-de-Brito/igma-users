@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { DatabaseUser, SendUser } from '../types/userTypes';
 import userService from '../services/userService';
+import { ErrorUtils } from '../utils/errorUtils';
 
 class userController {
 
@@ -18,6 +19,13 @@ class userController {
     const user: DatabaseUser = await userService.findUserByCpf(userCpf);
 
     return res.status(200).send(user);
+  }
+
+  public async getUsers(req: Request, res: Response): Promise<Response> {
+    const offset: number = res.locals.offset;
+    const limit: number = res.locals.limit;
+
+    return res.sendStatus(501);
   }
 }
 
