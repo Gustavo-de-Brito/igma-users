@@ -1,7 +1,7 @@
 import userFactory from '../factories/userFactory';
 import userService from '../../src/services/userService';
 import userRepository from '../../src/repositories/userRepository';
-import { SendUser } from '../../src/types/userTypes';
+import { DatabaseUser, SendUser } from '../../src/types/userTypes';
 
 describe('Test user service methods', () => {
   it('it should throw an error for invalid CPF', async () => {
@@ -77,4 +77,33 @@ describe('Test user service methods', () => {
 
     expect(result.cpf).toEqual(newUser.cpf);
   });
+
+  it('it should throw an error if queries get no data back', async () => {
+    const offset: number = 0;
+    const limit: number = 100;
+
+    jest
+        .spyOn(userRepository, 'getUsersList')
+        .mockResolvedValue([]);
+
+    const result = userService.getUsers(offset, limit);
+
+    expect(result).rejects.toEqual({ type: 'not_found', message: 'as querys passadas não possuem dados correspondentes'});
+  });
+
+  it('it should return a list of users when passing through all validation',
+    async () => {
+      const registeredUser: DatabaseUser = await userFactory.generateDbUser();
+      const offset: number = 0;
+      const limit: number = 100;
+
+      jest
+          .spyOn(userRepository, 'getUsersList')
+          .mockResolvedValue([registeredUser]);
+
+      const result = await userService.getUsers(offset, limit);
+
+      expect(result).toBeInstanceOf(Array);
+    }
+  );
 });
