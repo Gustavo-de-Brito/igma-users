@@ -8,10 +8,7 @@ class UserService {
     const formatedCpf: string = this.cpfValidation(newUser.cpf);
     await this.isUserRegistered(formatedCpf);
 
-    const birthday = new Date(newUser.birthday);
-    const formatedBirthday: string =  (birthday.getDate() + '-' +
-      (birthday.getMonth() + 1) + '-' + birthday.getFullYear()
-    );
+    const formatedBirthday: string = this.formatDate(newUser.birthday);
 
     const formatedUser = {
       ...newUser,
@@ -20,6 +17,18 @@ class UserService {
     };
 
     await userRepository.addUser(formatedUser);
+  }
+
+  public async findUserByCpf(cpf: string): Promise<DatabaseUser> {
+    const formatedCpf: string = this.cpfValidation(cpf);
+  
+    const user: DatabaseUser | undefined = (
+      await userRepository.findUserByCpf(formatedCpf)
+    );
+  
+    if(!user) throw ErrorUtils.notFoundError('Usuário não encontrado');
+  
+    return {...user, birthday: this.formatDate(user.birthday)};
   }
 
   private cpfValidation(cpf: string): string {
@@ -41,6 +50,15 @@ class UserService {
     if(registeredUser) {
       throw ErrorUtils.conflictError('o cliente já está registrado');
     }
+  }
+
+  private formatDate(date: string): string {
+    const birthday = new Date(date);
+    const formatedBirthday: string =  (birthday.getDate() + '-' +
+      (birthday.getMonth() + 1) + '-' + birthday.getFullYear()
+    );
+
+    return formatedBirthday;
   }
 }
 

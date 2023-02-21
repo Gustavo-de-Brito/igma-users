@@ -53,9 +53,9 @@ npm run test:integration
 
 ## Rotas
 
-### POST users
+### POST /users
 
-recebe um body no formato:
+Recebe um body no formato:
 
 ```
 {
@@ -69,3 +69,21 @@ recebe um body no formato:
 - **birthday** deve seguir o formato *MM-DD-YYYY*;
 
 - Em caso de sucesso, a requisição terá como resposta status **201**.
+
+### GET /users/:cpf
+
+Recebe um cpf no params, somento os números ou com pontuação.
+
+Caso o usuário seja encontrado é retornado um objeto no seguinte formato: 
+
+```
+{
+  "id": 1,
+  "name": "Arlindo",
+  "cpf": "123.123.123-12",
+  "birthday": "15-12-2003"
+}
+```
+
+- **birthday** é retornado no formato *DD-MM-YYYY*
+- o **cpf** passado no params precisa ser um CPF válido
