@@ -7,9 +7,9 @@ class userController {
   public async createUser(req: Request, res: Response): Promise<Response> {
     const newUser: SendUser = req.body;
 
-    userService.registerUser(newUser);
+    await userService.registerUser(newUser);
   
-    return res.status(501).send('POST users route');
+    return res.sendStatus(201);
   }
 }
 

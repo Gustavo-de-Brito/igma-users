@@ -1,4 +1,5 @@
 export default class ValidateCpf {
+  formatedCpf!: string;
   cpfNumbers: string;
 
   constructor(cpf: string) {
@@ -39,5 +40,21 @@ export default class ValidateCpf {
     const sequence = this.cpfNumbers[0].repeat(11);
 
     return sequence === this.cpfNumbers;
+  }
+
+  public formatCpf(): void {
+    let formatedCpf: string = '';
+  
+    for(let i = 0; i < this.cpfNumbers.length; i++) {
+      if(i === 3 || i === 6) {
+        formatedCpf += '.';
+      } else if(i === 9) {
+        formatedCpf += '-';
+      }
+
+      formatedCpf += this.cpfNumbers[i];
+    }
+
+    this.formatedCpf = formatedCpf;
   }
 }

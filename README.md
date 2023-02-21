@@ -12,6 +12,8 @@ Uma API REST para cadastro de clientes.
 - Dotenv
 - Nodemon
 - pg(postgres)
+- Joi
+- express-async-errors
 - PostgreSQL
 
 ## Como rodar o projeto
@@ -33,3 +35,22 @@ npm run start
 # Ou rode o projeto simulando o ambiente de desenvolvimento
 npm run dev
 ```
+
+## Rotas
+
+### POST users
+
+recebe um body no formato:
+
+```js
+{
+  "name": "Arlindo",
+  "cpf": "123.123.123-12",
+  "birthday": "12-15-2003"
+}
+```
+
+- **cpf** pode seguir o formato com pontuação ou apenas os números, mas sempre deve ser uma string;
+- **birthday** deve seguir o formato *MM-DD-YYYY*;
+
+- Em caso de sucesso, a requisição terá como resposta status **201**.
