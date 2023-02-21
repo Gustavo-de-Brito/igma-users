@@ -34,7 +34,9 @@ class UserService {
   public async getUsers(offset: number, limit: number): Promise<DatabaseUser[]> {
     const users = await userRepository.getUsersList(offset, limit);
 
-    if(users.length === 0) throw ErrorUtils.notFoundError('as querys passadas são inválidas');
+    if(users.length === 0) {
+      throw ErrorUtils.notFoundError('as querys passadas não possuem dados correspondentes');
+    }
 
     const formatedUsers: DatabaseUser[] = users.map(user => {
       return {
