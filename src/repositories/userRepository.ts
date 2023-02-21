@@ -6,8 +6,9 @@ class UserRepository {
     const { rows: [ user ] } = await connection.query(
       `
       SELECT * FROM users
-      WHERE cpf = '${cpf}';
-      `
+      WHERE cpf = $1;
+      `,
+      [ cpf ]
     );
 
     return user;
@@ -17,8 +18,9 @@ class UserRepository {
     await connection.query(
       `
       INSERT INTO users (name, cpf, birthday)
-      VALUES ('${ user.name }', '${ user.cpf }', '${ user.birthday }');      
-      `
+      VALUES ($1, $2, $3);
+      `,
+      [ user.name, user.cpf, user.birthday ]
     );
   }
 
@@ -26,9 +28,10 @@ class UserRepository {
     const{ rows: users } = await connection.query(
       `
       SELECT * FROM users
-      OFFSET ${offset}
-      LIMIT ${limit};
-      `
+      OFFSET $1
+      LIMIT $2;
+      `,
+      [ offset, limit]
     );
 
     return users;
